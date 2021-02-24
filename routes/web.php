@@ -1,18 +1,25 @@
 <?php
 
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\ChartController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\DropzoneController;
 use App\Http\Controllers\EditorController;
 use App\Http\Controllers\EmpController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\FormController;
 use App\Http\Controllers\GalleryController;
 use App\Http\Controllers\ImageController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PersonController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\StudentController;
+use App\Http\Controllers\SupervisorController;
 use App\Http\Controllers\TeacherController;
 use App\Http\Controllers\TestController;
+use App\Http\Controllers\TestDBController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\ZipController;
 use Illuminate\Support\Facades\Route;
@@ -98,7 +105,7 @@ Route::get('/edit-teacher/{id}', [TeacherController::class, 'editTeacher']);
 
 Route::post('/update-teacher',    [TeacherController::class, 'updateTeacher'])->name('teacher.update');
 
-Route::get('/delete-teacher/{id}',[TeacherController::class, 'deleteTeacher']);
+Route::get('/delete-teacher/{id}', [TeacherController::class, 'deleteTeacher']);
 
 Route::get('/contact-us',         [ContactController::class, 'contact']);
 
@@ -113,3 +120,41 @@ Route::get('/search',             [ProductController::class, 'search']);
 Route::get('/autocomplete',       [ProductController::class, 'autocomplete'])->name('autocomplete');
 
 Route::get('/zip',                [ZipController::class, 'zipFile']);
+
+Route::get('/supervisors',             [SupervisorController::class, 'index']);
+
+Route::post('/add-supervisor',         [SupervisorController::class, 'addSupervisor'])->name('supervisor.add');
+
+Route::get('/supervisors/{id}',        [SupervisorController::class, 'getSupervisorById']);
+
+Route::put('/supervisor',              [SupervisorController::class, 'updateSupervisor'])->name('supervisor.update');
+
+Route::delete('/supervisors/{id}',     [SupervisorController::class, 'deleteSupervisor']);
+
+Route::delete('/selected-supervisors', [SupervisorController::class, 'deleteCheckedSupervisors'])->name('supervisors.deletedSelected');
+
+Route::get('/register',                [AuthController::class, 'index']);
+
+Route::post('/register',               [AuthController::class, 'registerSubmit'])->name('auth.registersubmit');
+
+Route::get('/pages',                   [PageController::class, 'index']);
+
+Route::get('/chart',                   [ChartController::class, 'index']);
+
+Route::get('/bar-chart',               [ChartController::class, 'barChart']);
+
+Route::get('/add-student',             [TestDBController::class, 'addStudent']);
+
+Route::get('/add-paper',               [TestDBController::class, 'addPaper']);
+
+Route::get('/students',                [TestDBController::class, 'getStudents']);
+
+Route::get('/papers',                  [TestDBController::class, 'getPapers']);
+
+Route::get('/form',                    [FormController::class, 'index']);
+
+Route::post('/form',                   [FormController::class, 'formSubmit'])->name('form.formsubmit');
+
+Route::get('/add-person',              [PersonController::class, 'addPerson']);
+
+Route::get('/people',                  [PersonController::class, 'getPeople']);
